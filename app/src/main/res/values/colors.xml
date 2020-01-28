@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#2196f3</color>
+    <color name="colorPrimaryDark">#1976d2</color>
+    <color name="colorAccent">#0f364e</color>
+
+    <color name="dialogBackdropColor">#2A668A</color>
+    <color name="toastBackdropColor">#B6374B</color>
+    <color name="buttonPressedColor">#0f364e</color>
+
+</resources>

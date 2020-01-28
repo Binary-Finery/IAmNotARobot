@@ -1,0 +1,12 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto"
+      xmlns:tools="http://schemas.android.com/tools"
+      tools:context="com.spencerstudios.iamnotarobot.MainActivity">
+
+    <item android:id="@+id/action_refresh"
+          android:title="Refresh"
+          android:orderInCategory="100"
+          android:icon="@drawable/outline_refresh_white_24"
+          app:showAsAction="always"
+          tools:ignore="HardcodedText"/>
+</menu>
