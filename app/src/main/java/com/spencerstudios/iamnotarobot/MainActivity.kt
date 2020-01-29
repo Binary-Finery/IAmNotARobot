@@ -1,8 +1,11 @@
 package com.spencerstudios.iamnotarobot
 
+import android.content.Intent
 import android.graphics.Typeface
+import android.net.Uri
 import android.os.Bundle
 import android.support.v4.content.res.ResourcesCompat
+import android.support.v4.text.HtmlCompat
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.util.DisplayMetrics
@@ -11,6 +14,7 @@ import android.view.MenuItem
 import android.view.inputmethod.EditorInfo
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -38,6 +42,14 @@ class MainActivity : AppCompatActivity() {
                     displaySuccessMsg(captcha.getAnswer() == inputCaptcha.text.toString())
             }
             true
+        }
+
+        acronym.text = HtmlCompat.fromHtml("<B><U>C</U></B>ompletely <B><U>A</U></B>utomated <B><U>P</U></B>ublic <B><U>T</U></B>uring <I>test to tell</I> <B><U>C</U></B>omputers <I>and</I> <B><U>H</U></B>umans <B><U>A</U></B>part",HtmlCompat.FROM_HTML_MODE_LEGACY)
+        learnMore.text = HtmlCompat.fromHtml("<U>Learn More</U>", HtmlCompat.FROM_HTML_MODE_LEGACY)
+        learnMore.setOnClickListener {
+            val uri = Uri.parse("https://en.wikipedia.org/wiki/CAPTCHA")
+            val intent = Intent(Intent.ACTION_VIEW, uri)
+            startActivity(intent)
         }
     }
 

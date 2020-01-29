@@ -20,20 +20,64 @@
             android:layout_gravity="center_horizontal"
             tools:ignore="ContentDescription"/>
 
-        <EditText
-                android:id="@+id/inputCaptcha"
-                android:layout_width="match_parent"
+    <TextView android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_marginStart="32dp"
+              android:layout_marginEnd="32dp"
+              android:layout_marginTop="16dp"
+              android:text="type the characters that you see in the image above"
+              tools:ignore="HardcodedText"/>
+
+    <EditText
+            android:id="@+id/inputCaptcha"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxLength="10"
+            android:textSize="22sp"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
+            android:imeOptions="actionDone"
+            android:background="@drawable/captcha_input_background"
+            android:inputType="textNoSuggestions|textVisiblePassword"
+            tools:ignore="Autofill,HardcodedText,LabelFor"
+            android:fontFamily="@font/anonymous_pro_bold"/>
+
+    <LinearLayout android:layout_width="match_parent"
+                  android:layout_height="0dp"
+                  android:layout_weight="1"
+                  android:gravity="center"
+                  android:orientation="vertical" tools:ignore="UseCompoundDrawables">
+
+        <ImageView android:layout_width="60dp"
+                   android:layout_height="60dp"
+                   android:layout_gravity="center_horizontal"
+                   android:src="@drawable/android" tools:ignore="ContentDescription"/>
+
+        <TextView
+                android:id="@+id/acronym"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:hint="captcha"
-                android:maxLength="10"
-                android:textSize="22sp"
-                android:layout_marginStart="32dp"
-                android:layout_marginEnd="32dp"
+                android:textColor="#000"
+                android:textSize="14sp"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center_horizontal"
+        />
+
+        <TextView
+                android:id="@+id/learnMore"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorPrimaryDark"
+                android:background="?attr/selectableItemBackground"
+                android:textSize="14sp"
                 android:layout_marginTop="16dp"
-                android:imeOptions="actionDone"
-                android:background="@drawable/captcha_input_background"
-                android:inputType="textNoSuggestions|textVisiblePassword"
-                tools:ignore="Autofill,HardcodedText,LabelFor"
-                android:fontFamily="@font/anonymous_pro_bold"/>
+                android:layout_gravity="center_horizontal"
+                android:gravity="center_horizontal"
+                tools:ignore="HardcodedText"/>
+
+
+
+    </LinearLayout>
+
 
 </LinearLayout>
