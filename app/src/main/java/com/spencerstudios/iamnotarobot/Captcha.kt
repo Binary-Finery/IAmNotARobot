@@ -6,23 +6,11 @@ import android.support.v4.content.res.ResourcesCompat
 import java.io.CharArrayWriter
 import java.util.*
 
-class Captcha(ctx: Context, private val width: Int, private val height: Int) {
+class Captcha(ctx: Context, private val width: Int, private val height: Int, private val chars : ArrayList<Char>) {
 
-    private var mCh: Char = ' '
     private var answer = ""
     private val wordLength = 5
     private val tf = ResourcesCompat.getFont(ctx, R.font.anonymous_pro_bold)
-    private val colors = intArrayOf(
-        Color.BLUE,
-        Color.BLACK,
-        Color.DKGRAY,
-        Color.GRAY,
-        Color.MAGENTA,
-        Color.GREEN,
-        Color.RED,
-        Color.BLACK
-    )
-    private val colLen = colors.size - 1
 
     fun getImage(): Bitmap {
         val paint = Paint()
@@ -44,25 +32,23 @@ class Captcha(ctx: Context, private val width: Int, private val height: Int) {
         canvas1.drawRect(0f, 0f, width.toFloat(), height.toFloat(), border)
 
         val r = Random(System.currentTimeMillis())
-        val cab = CharArrayWriter()
+        val caw = CharArrayWriter()
         for (i in 0 until wordLength) {
-            val ch = getLettersNumbers(r)
-            cab.append(ch)
+            val ch = chars[r.nextInt(chars.size)]
+            caw.append(ch)
             answer += ch
         }
-
-        val data = cab.toCharArray()
+        val data = caw.toCharArray()
         val w = width / 7
         var x = 0
-        var y: Int
         val textPaint = Paint()
         val canvas2 = Canvas(bitmap)
         for (i in data.indices) {
             x += w
-            y = height / 2 + Math.abs(r.nextInt()) % 50
+            val y = height / 2 + Math.abs(r.nextInt()) % 50
             textPaint.apply {
                 textSkewX = r.nextFloat() - r.nextFloat()
-                color = colors[r.nextInt(colLen)]
+                color = getColor(r)
                 typeface = tf
                 isStrikeThruText = r.nextBoolean()
                 textScaleX = r.nextFloat() * (3f - .5f) + .5f
@@ -72,17 +58,6 @@ class Captcha(ctx: Context, private val width: Int, private val height: Int) {
             canvas2.drawText(data, i, 1, x.toFloat(), y.toFloat(), textPaint)
         }
         return bitmap
-    }
-
-    private fun getLettersNumbers(r: Random): Char {
-        val rint = r.nextInt(123 - 49) + 49
-
-        when (rint) {
-            in 91..96 -> getLettersNumbers(r)
-            in 58..64 -> getLettersNumbers(r)
-            else -> mCh = rint.toChar()
-        }
-        return mCh
     }
 
     fun getAnswer(): String {

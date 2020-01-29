@@ -17,6 +17,7 @@ class MainActivity : AppCompatActivity() {
     private var captchaHeight = 0
 
     private lateinit var captcha: Captcha
+    private lateinit var chars : ArrayList<Char>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,6 +31,8 @@ class MainActivity : AppCompatActivity() {
         captchaWidth = (displayWidth / 2) + (displayWidth / 4)
         captchaHeight = captchaWidth / 4
 
+        chars = getChars()
+
         setCaptcha()
 
         inputCaptcha.setOnEditorActionListener { _, i, _ ->
@@ -41,7 +44,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setCaptcha() {
-        captcha = Captcha(this, captchaWidth, captchaHeight)
+        captcha = Captcha(this, captchaWidth, captchaHeight, chars)
         captchaView.setImageBitmap(captcha.getImage())
     }
 
