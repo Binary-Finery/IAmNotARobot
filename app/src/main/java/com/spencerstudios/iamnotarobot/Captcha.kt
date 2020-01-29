@@ -1,16 +1,12 @@
 package com.spencerstudios.iamnotarobot
 
-import android.content.Context
 import android.graphics.*
-import android.support.v4.content.res.ResourcesCompat
-import java.io.CharArrayWriter
 import java.util.*
 
-class Captcha(ctx: Context, private val width: Int, private val height: Int, private val chars : ArrayList<Char>) {
+class Captcha(private val width: Int, private val height: Int, private val chars : ArrayList<Char>, private val tf : Typeface) {
 
     private var answer = ""
     private val wordLength = 5
-    private val tf = ResourcesCompat.getFont(ctx, R.font.anonymous_pro_bold)
 
     fun getImage(): Bitmap {
         val paint = Paint()
@@ -32,13 +28,12 @@ class Captcha(ctx: Context, private val width: Int, private val height: Int, pri
         canvas1.drawRect(0f, 0f, width.toFloat(), height.toFloat(), border)
 
         val r = Random(System.currentTimeMillis())
-        val caw = CharArrayWriter()
-        for (i in 0 until wordLength) {
+        val data = CharArray(wordLength)
+        (0 until wordLength).forEach { i ->
             val ch = chars[r.nextInt(chars.size)]
-            caw.append(ch)
+            data[i] = ch
             answer += ch
         }
-        val data = caw.toCharArray()
         val w = width / 7
         var x = 0
         val textPaint = Paint()

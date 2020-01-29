@@ -1,6 +1,8 @@
 package com.spencerstudios.iamnotarobot
 
+import android.graphics.Typeface
 import android.os.Bundle
+import android.support.v4.content.res.ResourcesCompat
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.util.DisplayMetrics
@@ -17,6 +19,7 @@ class MainActivity : AppCompatActivity() {
     private var captchaHeight = 0
 
     private lateinit var captcha: Captcha
+    private lateinit var tf : Typeface
     private lateinit var chars : ArrayList<Char>
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -24,27 +27,22 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
 
-        val displayMetrics = DisplayMetrics()
-        this.windowManager.defaultDisplay.getMetrics(displayMetrics)
-
-        displayWidth = displayMetrics.widthPixels
-        captchaWidth = (displayWidth / 2) + (displayWidth / 4)
-        captchaHeight = captchaWidth / 4
-
+        initCaptchaDimens()
+        tf = ResourcesCompat.getFont(this, R.font.anonymous_pro_bold)!!
         chars = getChars()
-
         setCaptcha()
 
         inputCaptcha.setOnEditorActionListener { _, i, _ ->
             when (i) {
-                EditorInfo.IME_ACTION_DONE -> displaySuccessMsg(captcha.getAnswer() == inputCaptcha.text.toString())
+                EditorInfo.IME_ACTION_DONE ->
+                    displaySuccessMsg(captcha.getAnswer() == inputCaptcha.text.toString())
             }
             true
         }
     }
 
     private fun setCaptcha() {
-        captcha = Captcha(this, captchaWidth, captchaHeight, chars)
+        captcha = Captcha(captchaWidth, captchaHeight, chars, tf)
         captchaView.setImageBitmap(captcha.getImage())
     }
 
@@ -53,6 +51,15 @@ class MainActivity : AppCompatActivity() {
             b -> displaySuccessDialog()
             else -> inputCaptcha.error = "incorrect, try again"
         }
+    }
+
+    private fun initCaptchaDimens(){
+        val displayMetrics = DisplayMetrics()
+        this.windowManager.defaultDisplay.getMetrics(displayMetrics)
+
+        displayWidth = displayMetrics.widthPixels
+        captchaWidth = (displayWidth / 2) + (displayWidth / 4)
+        captchaHeight = captchaWidth / 4
     }
 
     private fun displaySuccessDialog() {
