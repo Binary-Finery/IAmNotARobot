@@ -1,5 +1,6 @@
 package com.spencerstudios.iamnotarobot
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.Typeface
 import android.net.Uri
@@ -9,12 +10,12 @@ import android.support.v4.text.HtmlCompat
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.util.DisplayMetrics
+import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
 import android.view.inputmethod.EditorInfo
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
-
 
 class MainActivity : AppCompatActivity() {
 
@@ -23,7 +24,7 @@ class MainActivity : AppCompatActivity() {
     private var captchaHeight = 0
 
     private lateinit var captcha: Captcha
-    private lateinit var tf : Typeface
+    private lateinit var typeFace : Typeface
     private lateinit var chars : ArrayList<Char>
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,7 +33,7 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
 
         initCaptchaDimens()
-        tf = ResourcesCompat.getFont(this, R.font.anonymous_pro_bold)!!
+        typeFace = ResourcesCompat.getFont(this, R.font.anonymous_pro_bold)!!
         chars = getChars()
         setCaptcha()
 
@@ -54,7 +55,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setCaptcha() {
-        captcha = Captcha(captchaWidth, captchaHeight, chars, tf)
+        captcha = Captcha(captchaWidth, captchaHeight, chars, typeFace)
         captchaView.setImageBitmap(captcha.getImage())
     }
 
@@ -72,18 +73,6 @@ class MainActivity : AppCompatActivity() {
         displayWidth = displayMetrics.widthPixels
         captchaWidth = (displayWidth / 2) + (displayWidth / 4)
         captchaHeight = captchaWidth / 4
-    }
-
-    private fun displaySuccessDialog() {
-        val builder = AlertDialog.Builder(this)
-        builder.setTitle("Correct")
-        builder.setMessage("you got it!!!")
-        builder.setPositiveButton("show me another") { d, _ ->
-            refreshCaptcha()
-            d.dismiss()
-        }
-        builder.setNegativeButton("close") { d, _ -> d.dismiss() }
-        builder.create().show()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -105,5 +94,21 @@ class MainActivity : AppCompatActivity() {
         inputCaptcha.setText("")
         inputCaptcha.error = null
         setCaptcha()
+    }
+
+    @SuppressLint("InflateParams")
+    private fun displaySuccessDialog() {
+        val builder = AlertDialog.Builder(this)
+        val v = LayoutInflater.from(this).inflate(R.layout.success_dialog, null)
+        builder.setView(v)
+
+        builder.setPositiveButton("show me another") { d, _ ->
+            refreshCaptcha()
+            d.dismiss()
+        }
+
+        builder.setNeutralButton("close") { d, _ -> d.dismiss() }
+
+        builder.create().show()
     }
 }

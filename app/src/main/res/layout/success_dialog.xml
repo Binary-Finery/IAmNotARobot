@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools" android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content">
+
+    <LinearLayout android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:background="#388e3c"
+                  android:orientation="vertical">
+
+        <ImageView android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:src="@drawable/ic_check_circle"
+                   android:tint="#fff"
+                   android:layout_gravity="center_horizontal"
+                   android:layout_marginTop="16dp" tools:ignore="ContentDescription"/>
+
+        <TextView android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:text="Success"
+                  android:textStyle="bold"
+                  android:textSize="22sp"
+                  android:textColor="#fff"
+                  android:layout_gravity="center_horizontal"
+                  android:gravity="center_horizontal"
+                  android:layout_marginTop="8dp"
+                  android:layout_marginBottom="16dp" tools:ignore="HardcodedText"/>
+
+
+    </LinearLayout>
+
+    <TextView android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_marginStart="16dp"
+              android:layout_marginTop="16dp"
+              android:layout_marginBottom="16dp"
+              android:textSize="16sp"
+              android:text="Great, you got it!!!" tools:ignore="HardcodedText"/>
+
+</LinearLayout>
